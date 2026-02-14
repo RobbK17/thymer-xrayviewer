@@ -1,4 +1,4 @@
-//Xray Viewer - v1.00
+//Xray Viewer - v1.01
 // Show structure of a record in a panel or create a record with its contents
 
 const XCOPY_VERSION = "2025-02-link-display";
@@ -19,7 +19,7 @@ class Plugin extends AppPlugin {
       try { console.log("[XRay Viewer] loaded", XCOPY_VERSION); } catch (_) {}
     }
     this.ui.addCommandPaletteCommand({
-      label: "XRay Viewer: Record structure copy",
+      label: "XRay Viewer: Copy record elements",
       icon: "copy",
       onSelected: async () => {
         try {
@@ -143,7 +143,7 @@ class Plugin extends AppPlugin {
     });
 
     this.ui.addCommandPaletteCommand({
-      label: "XRay Viewer: Show record structure",
+      label: "XRay Viewer: Show record elements",
       icon: "ti-binary-tree",
       onSelected: openStructureView,
     });
