@@ -1,4 +1,4 @@
-//Xray Viewer - v1.01
+//Xray Viewer - v1.02
 // Show structure of a record in a panel or create a record with its contents
 
 const XCOPY_VERSION = "2025-02-link-display";
@@ -144,7 +144,7 @@ class Plugin extends AppPlugin {
 
     this.ui.addCommandPaletteCommand({
       label: "XRay Viewer: Show record elements",
-      icon: "ti-binary-tree",
+      icon: "pencil",
       onSelected: openStructureView,
     });
   }
