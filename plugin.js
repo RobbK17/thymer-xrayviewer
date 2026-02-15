@@ -1,4 +1,4 @@
-//Xray Viewer - v1.02
+//Xray Viewer - v1.03
 // Show structure of a record in a panel or create a record with its contents
 
 const XCOPY_VERSION = "2025-02-link-display";
@@ -96,14 +96,14 @@ class Plugin extends AppPlugin {
   }
 
   // --------------------------------------------
-  // Record Structure View: panel type, sidebar, command
+  // XRay View: panel type, sidebar, command
   // --------------------------------------------
   _initRecordStructureView() {
     this._structureViewRecordGuid = null;
 
     this.ui.registerCustomPanelType("record-structure-view", (panel) => {
       this.renderStructurePanel(panel);
-    });
+    }, { label: "XRay View" });
 
     const openStructureView = async () => {
       try {
@@ -111,7 +111,7 @@ class Plugin extends AppPlugin {
         const record = panel?.getActiveRecord?.();
         if (!panel || !record) {
           this.ui.addToaster({
-            title: "Record Structure",
+            title: "XRay View",
             message: "Open a record first, then try again.",
             dismissible: true,
             autoDestroyTime: 3500,
@@ -124,11 +124,11 @@ class Plugin extends AppPlugin {
         const targetPanel = await this.ui.createPanel({ afterPanel: rightmost });
         if (targetPanel) {
           targetPanel.navigateToCustomType("record-structure-view");
-          targetPanel.setTitle("Structure: " + (record.getName() || "Untitled"));
+          targetPanel.setTitle("XRay View: " + (record.getName() || "Untitled"));
         }
       } catch (e) {
         this.ui.addToaster({
-          title: "Record Structure",
+          title: "XRay View",
           message: "Error: " + String(e),
           dismissible: true,
         });
@@ -136,15 +136,15 @@ class Plugin extends AppPlugin {
     };
 
     this.ui.addSidebarItem({
-      label: "Record structure",
-      icon: "ti-binary-tree",
+      label: "XRay View",
+      icon: "sparkles",
       tooltip: "Visualize all elements in the current record",
       onClick: openStructureView,
     });
 
     this.ui.addCommandPaletteCommand({
       label: "XRay Viewer: Show record elements",
-      icon: "pencil",
+      icon: "sparkles",
       onSelected: openStructureView,
     });
   }
@@ -258,6 +258,9 @@ class Plugin extends AppPlugin {
     if (!record) {
       element.innerHTML = '<div class="rsv-empty">Record not found. It may have been deleted.</div>';
       return;
+    }
+    if (typeof panel.setTitle === "function") {
+      panel.setTitle("XRay View: " + (typeof record.getName === "function" ? record.getName() : record.name || record.title || "Untitled"));
     }
 
     let backlinks = [];
